@@ -6,7 +6,7 @@
 # By running this script you agree to the license terms.
 # Config ----------------------------------------------------------------------------
 GPTNAM="shatgpt"
-GPTVER="0.2"
+GPTVER="0.3"
 GPTCON=$@
 # Dependency ------------------------------------------------------------------------
 if [[ ! -e /usr/bin/jq ]]; then
@@ -20,6 +20,9 @@ fi
 # API Key ---------------------------------------------------------------------------
 if [[ ! -d $HOME/.shatgpt ]]; then
     mkdir $HOME/.shatgpt
+    read -p "Enter your ChatGPT API key: " GPTKEY
+    echo "$GPTKEY" > $HOME/.shatgpt/api_key
+elif [[ ! -f $HOME/.shatgpt/api_key ]]; then
     read -p "Enter your ChatGPT API key: " GPTKEY
     echo "$GPTKEY" > $HOME/.shatgpt/api_key
 fi
