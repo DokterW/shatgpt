@@ -44,12 +44,12 @@ if [[ -n $GPTCON ]]; then
     # echo -n "$GPTCON"
     GPTRSP=$(chatgpt)
     GPTERR=$(echo $GPTRSP | jq -r .error.message)
-    # echo $GPTRSP jq -r
-    # echo $GPTERR jq -r
+    # echo $GPTRSP | jq -r
+    # echo $GPTERR | jq -r
     if [[ "$GPTERR" != "null" ]]; then
         echo $GPTERR
     else
-        echo $GPTRSP | jq -r .choices[].message.content | tr -d '\n' | sed -r 's/(.*)/\1\n/'
+        echo $GPTRSP | sed -r 's/\"\\n\\n/\"/g' | jq -r .choices[].message.content
     fi
 else
     echo "$GPTNAM v$GPTVER"
