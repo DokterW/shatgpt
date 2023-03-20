@@ -1,5 +1,5 @@
 #!/bin/bash
-# shatgpt v0.1
+# shatgpt v0.2
 # Made by Dr. Waldijk
 # ChatGPT CLI.
 # Read the README.md for more info.
@@ -42,9 +42,15 @@ EOF
 # -----------------------------------------------------------------------------------
 if [[ -n $GPTCON ]]; then
     # echo -n "$GPTCON"
-    # chatgpt | jq -r .choices[].message.content | tr -d '\n' | sed -r 's/(.*)/\1\n/'
-    #chatgpt | jq -r
-    echo $(chatgpt | jq -r .choices[].message.content)
+    GPTRSP=$(chatgpt)
+    GPTERR=$(echo $GPTRSP | jq -r .error.message)
+    # echo $GPTRSP jq -r
+    # echo $GPTERR jq -r
+    if [[ "$GPTERR" != "null" ]]; then
+        echo $GPTERR
+    else
+        echo $GPTRSP | jq -r .choices[].message.content | tr -d '\n' | sed -r 's/(.*)/\1\n/'
+    fi
 else
     echo "$GPTNAM v$GPTVER"
     echo ""
