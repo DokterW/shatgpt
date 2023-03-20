@@ -1,12 +1,12 @@
 #!/bin/bash
-# shatgpt v0.2
+# shatgpt
 # Made by Dr. Waldijk
 # ChatGPT CLI.
 # Read the README.md for more info.
 # By running this script you agree to the license terms.
 # Config ----------------------------------------------------------------------------
 GPTNAM="shatgpt"
-GPTVER="0.1"
+GPTVER="0.2"
 GPTCON=$@
 # Dependency ------------------------------------------------------------------------
 if [[ ! -e /usr/bin/jq ]]; then
@@ -25,6 +25,13 @@ if [[ ! -d $HOME/.shatgpt ]]; then
 fi
 GPTKEY=$(cat $HOME/.shatgpt/api_key)
 # Functions -------------------------------------------------------------------------
+# curl https://api.openai.com/v1/chat/completions \
+#   -H "Content-Type: application/json" \
+#   -H "Authorization: Bearer $OPENAI_API_KEY" \
+#   -d '{
+#     "model": "gpt-3.5-turbo",
+#     "messages": [{"role": "user", "content": "Hello!"}]
+#   }'
 chatgpt() {
     curl -s https://api.openai.com/v1/chat/completions \
         -H "Content-Type: application/json" \
